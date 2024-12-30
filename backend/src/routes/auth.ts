@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import signup from '../controllers/signup';
-import login from '../controllers/login';
 import verify from '../controllers/verify'
+import loginRouter from './loginRouter'
 const router = Router();
 
 router.post('/signup', signup);
-router.post('/login', login);
-router.post('/verify-link/*',verify)
+router.use('/login', loginRouter);
+router.post('/verify_token',verify)
 
 export default router;
