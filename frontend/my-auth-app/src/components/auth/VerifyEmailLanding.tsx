@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { Button } from '../ui/Button';
 import axios from 'axios';
@@ -7,8 +8,8 @@ import axios from 'axios';
 export function VerifyEmail() {
   const navigate = useNavigate();
   const [isVerifying, setIsVerifying] = useState(false);
-  const { token } = useParams();
-  const authToken=token?.split('=')[1];
+  // const { token } = useParams();
+  // const authToken=token?.split('=')[1];
   const [message, setMessage]=useState('');
 
   const handleVerification = async () => {

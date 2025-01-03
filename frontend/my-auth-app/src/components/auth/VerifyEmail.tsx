@@ -1,4 +1,4 @@
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 
 export function VerifyEmail() {
