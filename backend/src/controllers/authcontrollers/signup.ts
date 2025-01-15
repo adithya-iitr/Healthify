@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import zod from 'zod'
 import bcrypt from 'bcrypt'
-import { generateVerificationToken } from '../utils/jwt.utils';
-import { sendVerificationEmail } from '../utils/nodemailer';
+import { generateVerificationToken } from '../../utils/jwt.utils';
+import { sendVerificationEmail } from '../../utils/nodemailer';
 const signup = async (req: Request, res: Response, next: NextFunction) => {
     const prisma = new PrismaClient();
     const genSalt = 10;

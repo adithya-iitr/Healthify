@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { SignupPage } from './pages/SignupPage';
 import { LoginPage } from './pages/LoginPage';
@@ -8,8 +8,12 @@ import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { VerifyResetEmailPage } from './pages/VerifyResetEmailPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import  VerifyEmailLandingPage  from './pages/VerifyEmailLandingPage'
+import BuddyProfile from './components/profile/BuddyProfile';
+import GroupProfile from './components/profile/GroupProfile';
 function App() {
+  
   return (
+    <>
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -20,9 +24,12 @@ function App() {
         <Route path="/verify-reset-email" element={<VerifyResetEmailPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/my_profile" element={<BuddyProfile />} />
+        <Route path="/group_profile/:id" element={<GroupProfile />} />
         <Route path="/verify-email/:token" element={<VerifyEmailLandingPage />} />
       </Routes>
     </Router>
+    </>
   );
 }
 

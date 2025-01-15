@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Phone } from 'lucide-react';
 import { InputField } from '../ui/InputField';
 import { Button } from '../ui/Button';
 import axios from 'axios'
@@ -17,7 +17,6 @@ export function OTPLogin({ onBack }: OTPLoginProps) {
 
     const handlePhoneNumberSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real app, send OTP to email here
         const response = await axios.post('http://localhost:8000/auth/login/otp', {
             phoneNumber: '+91'+PhoneNumber
         },
@@ -66,7 +65,7 @@ export function OTPLogin({ onBack }: OTPLoginProps) {
             {step === 'email' ? (
                 <form onSubmit={handlePhoneNumberSubmit} className="space-y-4">
                     <InputField
-                        icon={<Mail className="w-5 h-5 text-gray-500" />}
+                        icon={<Phone className="w-5 h-5 text-gray-500" />}
                         type="tel"
                         placeholder="Phone Number"
                         value={PhoneNumber}

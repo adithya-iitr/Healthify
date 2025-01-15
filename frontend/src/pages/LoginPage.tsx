@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import React from "react";
 import { Link } from 'react-router-dom';
 import { LoginOptions } from '../components/auth/LoginOptions';
 import { PasswordLogin } from '../components/auth/PasswordLogin';
 import { OTPLogin } from '../components/auth/OTPLogin';
-
-type LoginMethod = 'choose' | 'password' | 'otp';
+import OauthLogin from '../components/auth/OauthLogin';
+type LoginMethod = 'choose' | 'password' | 'otp' | 'google';
 
 export function LoginPage() {
   const [loginMethod, setLoginMethod] = useState<LoginMethod>('choose');
 
-  const handleMethodSelect = (method: 'password' | 'otp') => {
+  const handleMethodSelect = (method: 'password' | 'otp' | 'google') => {
     setLoginMethod(method);
   };
 
@@ -37,6 +38,10 @@ export function LoginPage() {
         
         {loginMethod === 'otp' && (
           <OTPLogin onBack={handleBack} />
+        )}
+
+        {loginMethod === 'google' && (
+          <OauthLogin onBack={handleBack} />
         )}
 
         <p className="mt-6 text-center text-sm text-gray-600">
