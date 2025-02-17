@@ -4,7 +4,6 @@ import { Mail, User, Phone, Lock } from 'lucide-react';
 import { InputField } from '../ui/InputField';
 import { Button } from '../ui/Button';
 import axios from 'axios';
-
 export function SignupForm() {
     const navigate = useNavigate();
     const [response, setResponse] = useState('');
@@ -13,6 +12,7 @@ export function SignupForm() {
         email: '',
         phone: '',
         password: '',
+        role: '',
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -53,8 +53,8 @@ export function SignupForm() {
             ...prev,
             [name]: value,
         }));
-    };
-
+    }; 
+    localStorage.setItem('role', formData.role);
     return (
         <div>
             {response && <p className="text-red-500 text-sm mt-2">{response}</p>}
@@ -95,6 +95,13 @@ export function SignupForm() {
                     onChange={handleChange}
                     required
                 />
+                <div>
+                    <p className="text-sm text-gray-500 pb-5">Want a Buddy or a Group?</p>
+                    <div className="flex flex-row gap-5">
+                        <input type="radio" name="role" value="buddy" onChange={handleChange}/> Buddy
+                        <input type="radio" name="role" value="group" onChange={handleChange}/> Group
+                    </div>
+                </div>
                 <Button type="submit">Sign Up</Button>
             </form>
         </div>

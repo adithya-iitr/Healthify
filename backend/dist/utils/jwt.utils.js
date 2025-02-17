@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyVerificationToken = exports.verifyRefreshToken = exports.verifyAccessToken = exports.generateVerificationToken = exports.generateRefreshToken = exports.generateAccessToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const accessTokenSecret = process.env.JWT_ACCESS_SECRET;
 const refreshTokenSecret = process.env.JWT_REFRESH_SECRET;
 const verificationTokenSecret = process.env.JWT_VERIFICATION_SECRET;
@@ -32,7 +34,13 @@ const verifyRefreshToken = (token) => {
     return jsonwebtoken_1.default.verify(token, refreshTokenSecret);
 };
 exports.verifyRefreshToken = verifyRefreshToken;
-const verifyVerificationToken = (email) => {
-    return jsonwebtoken_1.default.sign({ email }, verificationTokenSecret, { expiresIn: process.env.JWT_VERIFICATION_EXPIRE });
+const verifyVerificationToken = (token) => {
+    try {
+        return jsonwebtoken_1.default.verify(token, verificationTokenSecret);
+    }
+    catch (error) {
+        console.error("JWT Verification Failed:", error.message);
+        return null;
+    }
 };
 exports.verifyVerificationToken = verifyVerificationToken;

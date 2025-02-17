@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { generateVerificationToken } from "../utils/jwt.utils";
-import { sendVerificationEmail } from "../utils/nodemailer";
+import { generateVerificationToken } from "../../utils/jwt.utils";
+import { sendVerificationEmail } from "../../utils/nodemailer";
 const forgotPassword = async (req: Request, res: Response) => {
     const { email } = req.body;
     const verificationToken = generateVerificationToken(email);

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { InputField } from '../ui/InputField';
 import { Button } from '../ui/Button';
+import axios from 'axios';
 
 export function ForgotPasswordForm() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export function ForgotPasswordForm() {
     setIsSubmitting(true);
     
     // Simulate API call
+    const response = await axios.post('http://localhost:8000/auth/login/forgot-password', { email });
+    console.log(response.data);
     setTimeout(() => {
       navigate('/verify-reset-email', { state: { email } });
     }, 1000);

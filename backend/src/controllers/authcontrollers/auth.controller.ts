@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { generateAccessToken, verifyRefreshToken } from '../utils/jwt.utils';
+import { generateAccessToken, verifyRefreshToken } from '../../utils/jwt.utils';
 
 // Simulate a user database (Replace with actual DB in a real project)
 let refreshTokens: string[] = []; // Store refresh tokens in memory (use a database in production)

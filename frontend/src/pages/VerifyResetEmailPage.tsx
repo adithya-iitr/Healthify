@@ -1,7 +1,6 @@
 // import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import { Mail } from 'lucide-react';
-import { Button } from '../components/ui/Button';
 
 export function VerifyResetEmailPage() {
   const location = useLocation();
@@ -35,14 +34,6 @@ export function VerifyResetEmailPage() {
               </button>
             </p>
           </div>
-
-          {/* Demo purpose only - In production, remove this button */}
-          <Button
-            onClick={() => window.location.href = '/reset-password'}
-            className="max-w-xs mx-auto"
-          >
-            Continue to Reset Password
-          </Button>
         </div>
       </div>
     </div>

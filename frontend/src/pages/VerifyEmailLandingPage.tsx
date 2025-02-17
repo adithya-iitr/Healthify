@@ -1,3 +1,4 @@
+import React from "react"
 import { VerifyEmail } from "../components/auth/VerifyEmailLanding"
 export default function VerifyEmailLandingPage() {
     return (

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const accessTokenSecret = process.env.JWT_ACCESS_SECRET as string;
 const refreshTokenSecret = process.env.JWT_REFRESH_SECRET as string;
 const verificationTokenSecret=process.env.JWT_VERIFICATION_SECRET as string;
@@ -28,6 +29,11 @@ export const verifyRefreshToken = (token: string) => {
   return jwt.verify(token, refreshTokenSecret);
 };
 
-export const verifyVerificationToken = (email: string) => {
-  return jwt.sign({ email }, verificationTokenSecret, { expiresIn: process.env.JWT_VERIFICATION_EXPIRE });
+export const verifyVerificationToken = (token: string) => {
+  try {
+    return jwt.verify(token, verificationTokenSecret);
+  } catch (error: any) {
+    console.error("JWT Verification Failed:", error.message);
+    return null; 
+  }
 };

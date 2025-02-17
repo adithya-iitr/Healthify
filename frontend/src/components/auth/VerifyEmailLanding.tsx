@@ -1,6 +1,5 @@
 import { useState } from 'react';
-// import { useNavigate, useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import { Button } from '../ui/Button';
 import axios from 'axios';
@@ -8,24 +7,28 @@ import axios from 'axios';
 export function VerifyEmail() {
   const navigate = useNavigate();
   const [isVerifying, setIsVerifying] = useState(false);
-  // const { token } = useParams();
-  // const authToken=token?.split('=')[1];
+  const { token } = useParams();
   const [message, setMessage]=useState('');
-
+  const role=localStorage.getItem('role');
   const handleVerification = async () => {
     setIsVerifying(true);
     setMessage('')
     // Simulate verification process
     try {
       const response = await axios.post('http://localhost:8000/auth/verify_token', {
-        token: 'abs'
+        token: token
       })
       const accessToken=response.data.accessToken;
       const refreshToken=response.data.refreshToken;
       localStorage.setItem('accessToken',accessToken)
       localStorage.setItem('refreshToken',refreshToken)
       setTimeout(() => {
-        navigate('/home');
+        if(role==='buddy'){
+          navigate('/my_profile');
+        }
+        else{
+          navigate('/create_group');
+        }
       }, 1500);
     }
     catch(e){
