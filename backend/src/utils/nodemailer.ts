@@ -8,13 +8,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send email
-export async function sendVerificationEmail(userEmail: string, subject:string, text:string, html:string) {
+export async function sendVerificationEmail(userEmail: string, subject:string, html:string) {
   
   const mailOptions = {
     from: 'adithya.jaiswal341@gmail.com',  // Your email
     to: userEmail,  // Recipient's email
     subject: subject,
-    text: text,
     html: html,  // HTML email body
   };
 

@@ -4,19 +4,29 @@ import { Mail, User, Phone, Lock } from 'lucide-react';
 import { InputField } from '../ui/InputField';
 import { Button } from '../ui/Button';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
 export function SignupForm() {
     const navigate = useNavigate();
-    const [response, setResponse] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         password: '',
-        role: '',
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (!passwordRegex.test(formData.password)) {
+            toast.error("Invalid password", {
+                position: "top-center",
+                duration: 3000,
+            });
+            return;
+        }
+
         try {
             const apiResponse = await axios.post(
                 'http://localhost:8000/auth/signup',
@@ -32,32 +42,37 @@ export function SignupForm() {
                     },
                 }
             );
-            if (apiResponse.data === true) {
+
+            if (apiResponse.data.valid === true) {
+                localStorage.setItem('user',JSON.stringify(apiResponse.data.user))
                 navigate('/verify-email', { state: { email: formData.email } });
-            } else {
-                setResponse(apiResponse.data);
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                setResponse(error.response?.data?.message);
+                const message = error.response?.data || "Signup failed. Please try again.";
+                toast.error(message, {
+                    position: "top-center",
+                    duration: 3000,
+                });
             } else {
-                setResponse('An unexpected error occurred');
+                toast.error("An unexpected error occurred.", {
+                    position: "top-center",
+                    duration: 3000,
+                });
             }
         }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setResponse(''); // Clear any error
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
-    }; 
-    localStorage.setItem('role', formData.role);
+    };
+
     return (
         <div>
-            {response && <p className="text-red-500 text-sm mt-2">{response}</p>}
             <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
                 <InputField
                     icon={<User className="w-5 h-5 text-gray-500" />}
@@ -95,12 +110,8 @@ export function SignupForm() {
                     onChange={handleChange}
                     required
                 />
-                <div>
-                    <p className="text-sm text-gray-500 pb-5">Want a Buddy or a Group?</p>
-                    <div className="flex flex-row gap-5">
-                        <input type="radio" name="role" value="buddy" onChange={handleChange}/> Buddy
-                        <input type="radio" name="role" value="group" onChange={handleChange}/> Group
-                    </div>
+                <div className="text-xs text-gray-500 ml-1 -mt-4 mb-4">
+                    Password must be at least 8 characters, include an uppercase letter, a number, and a special character.
                 </div>
                 <Button type="submit">Sign Up</Button>
             </form>

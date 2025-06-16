@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { Mail } from 'lucide-react';
-import React from 'react';
 export function VerifyEmail() {
   const location = useLocation();
   const email = location.state?.email;

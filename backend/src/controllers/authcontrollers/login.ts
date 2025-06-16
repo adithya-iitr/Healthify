@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt'
 import * as dotenv from 'dotenv'
 dotenv.config();
-import { generateAccessToken, generateRefreshToken } from '../../utils/jwt.utils';
+import { generateAccessToken } from '../../utils/jwt.utils';
 const login=async (req:Request,res: Response, next:NextFunction)=>{
     const prisma=new PrismaClient();
     const { email, password }: { email: string; password: string } = req.body;
@@ -34,10 +34,9 @@ const login=async (req:Request,res: Response, next:NextFunction)=>{
                 return
             }
             const accessToken=generateAccessToken(email)
-            const refreshToken=generateRefreshToken(email)
             res.json({
-                accessToken:accessToken,
-                refreshToken:refreshToken
+                token:accessToken,
+                user
             })
         }
     }
@@ -46,7 +45,5 @@ const login=async (req:Request,res: Response, next:NextFunction)=>{
         res.status(400).json({ error: (e as Error).message });
         return 
     }
-    //signin with oauth
-    //signin with password or otp
 }
 export default login

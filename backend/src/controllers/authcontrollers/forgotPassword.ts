@@ -6,9 +6,8 @@ const forgotPassword = async (req: Request, res: Response) => {
     const verificationToken = generateVerificationToken(email);
     const verificationLink = `http://localhost:5175/login/forgot-password?token=${verificationToken}`;
     const subject = 'Change Password'
-    const text = `Click this link to set your new password: ${verificationLink}`
     const html = `<p>Click this <a href="${verificationLink}">link</a> to change your password.</p>`
-    sendVerificationEmail(email, subject, text, html);
+    sendVerificationEmail(email, subject, html);
     res.json({
         email: email,
         msg: "Mail with link to change your password sent to the above email."

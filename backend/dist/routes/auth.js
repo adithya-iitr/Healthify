@@ -10,5 +10,5 @@ const loginRouter_1 = __importDefault(require("./loginRouter"));
 const router = (0, express_1.Router)();
 router.post('/signup', signup_1.default);
 router.use('/login', loginRouter_1.default);
-router.post('/verify_token', verify_1.default);
+router.get('/verify_token', verify_1.default);
 exports.default = router;

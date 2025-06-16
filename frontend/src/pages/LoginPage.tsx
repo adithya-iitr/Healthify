@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { LoginOptions } from '../components/auth/LoginOptions';
 import { PasswordLogin } from '../components/auth/PasswordLogin';
 import { OTPLogin } from '../components/auth/OTPLogin';
-import OauthLogin from '../components/auth/OauthLogin';
+// import OauthLogin from '../components/auth/OauthLogin';
 type LoginMethod = 'choose' | 'password' | 'otp' | 'google';
 
 export function LoginPage() {
@@ -40,9 +40,9 @@ export function LoginPage() {
           <OTPLogin onBack={handleBack} />
         )}
 
-        {loginMethod === 'google' && (
+        {/* {loginMethod === 'google' && (
           <OauthLogin onBack={handleBack} />
-        )}
+        )} */}
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{' '}
