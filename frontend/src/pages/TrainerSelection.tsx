@@ -345,8 +345,12 @@ const TrainerSelection: React.FC = () => {
     }
   };
   const selectTrainer=(trainer: Trainer)=>{
-    setSelected(true);
-    localStorage.setItem('selected trainer',trainer.id)
+    if(userPlan!=='null'){
+      setSelected(true);
+      localStorage.setItem('selected trainer',trainer.id)
+    } 
+    else
+    navigate('/plan')
   }
   if (!userPlan) {
     return (
@@ -382,7 +386,7 @@ const TrainerSelection: React.FC = () => {
             </div>
             
             {/* Plan Features */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            {userPlan!=='null' &&<div className="bg-white rounded-xl p-4 shadow-sm">
               <div className="flex items-center space-x-2 mb-2">
                 <Award className="h-5 w-5 text-emerald-600" />
                 <span className="font-semibold text-gray-900 capitalize">{userPlan} Plan Benefits:</span>
@@ -394,7 +398,7 @@ const TrainerSelection: React.FC = () => {
                   </span>
                 ))}
               </div>
-            </div>
+            </div>}
           </div>
 
           {/* Search and Filters */}
@@ -534,7 +538,7 @@ const TrainerSelection: React.FC = () => {
                   <div className="space-y-3">
                     <button disabled={selected}
                       onClick={() => selectTrainer(trainer)}
-                      className={selected?'w-full bg-gray-400 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105':'w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105'}
+                      className={selected?'':'w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105'}
                     >
                       Select Trainer
                     </button>

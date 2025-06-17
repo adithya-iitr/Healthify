@@ -5,11 +5,8 @@ import { InputField } from '../ui/InputField';
 import { Button } from '../ui/Button';
 import axios from 'axios';
 import { toast } from "react-hot-toast";
-interface PasswordLoginProps {
-  onBack: () => void;
-}
 
-export function PasswordLogin({ onBack }: PasswordLoginProps) {
+export function PasswordLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -47,13 +44,6 @@ export function PasswordLogin({ onBack }: PasswordLoginProps) {
 
   return (
     <div className="space-y-6">
-      <button
-        onClick={onBack}
-        className="flex items-center text-gray-600 hover:text-gray-900"
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Back to options
-      </button>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <InputField

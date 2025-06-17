@@ -1,22 +1,7 @@
-import { useState } from 'react';
-import React from "react";
 import { Link } from 'react-router-dom';
-import { LoginOptions } from '../components/auth/LoginOptions';
 import { PasswordLogin } from '../components/auth/PasswordLogin';
-import { OTPLogin } from '../components/auth/OTPLogin';
-// import OauthLogin from '../components/auth/OauthLogin';
-type LoginMethod = 'choose' | 'password' | 'otp' | 'google';
 
 export function LoginPage() {
-  const [loginMethod, setLoginMethod] = useState<LoginMethod>('choose');
-
-  const handleMethodSelect = (method: 'password' | 'otp' | 'google') => {
-    setLoginMethod(method);
-  };
-
-  const handleBack = () => {
-    setLoginMethod('choose');
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
@@ -27,23 +12,7 @@ export function LoginPage() {
             Sign in to continue to your account
           </p>
         </div>
-
-        {loginMethod === 'choose' && (
-          <LoginOptions onSelect={handleMethodSelect} />
-        )}
-        
-        {loginMethod === 'password' && (
-          <PasswordLogin onBack={handleBack} />
-        )}
-        
-        {loginMethod === 'otp' && (
-          <OTPLogin onBack={handleBack} />
-        )}
-
-        {/* {loginMethod === 'google' && (
-          <OauthLogin onBack={handleBack} />
-        )} */}
-
+          <PasswordLogin/>
         <p className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{' '}
           <Link to="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
