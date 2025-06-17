@@ -18,7 +18,6 @@ import PaymentSuccess from './components/payment/PaymentSuccess';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import ChatPage from './pages/ChatPage';
-import VideoPlayer from './components/auth/VideoPlayer';
 function App() {
   
   return (

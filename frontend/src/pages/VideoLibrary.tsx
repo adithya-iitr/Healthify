@@ -116,8 +116,8 @@ const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
 const VideoLibrary: React.FC = () => {
   const navigate=useNavigate()
-  const userPlan = JSON.parse(localStorage.getItem('userPlan') || '{"plan": "null"}').plan
-  console.log(userPlan)
+  const rawPlan = localStorage.getItem("userPlan");
+  const { plan, expiry } = rawPlan ? JSON.parse(rawPlan) : { plan: null, expiry: null };
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
@@ -145,7 +145,10 @@ const VideoLibrary: React.FC = () => {
   }
   const canAccessVideo = (video: Video) => {
     if (!video.isPremium) return true;
-    if(new Date(userPlan.expiry) > new Date())return userPlan.toLowerCase() === 'pro' || userPlan.toLowerCase() === 'elite';
+    if (!plan || !expiry) return false;
+
+  const isActive = new Date(expiry) > new Date();
+  return isActive && (plan.toLowerCase() === 'pro' || plan.toLowerCase() === 'elite');
   };
 
   const handleVideoClick = (video: Video) => {
@@ -253,9 +256,9 @@ const VideoLibrary: React.FC = () => {
             </div>
             
             {/* Plan Badge */}
-            {userPlan && new Date(userPlan.expiry) > new Date() &&(
+            {rawPlan && new Date(expiry) > new Date() &&(
               <div className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-semibold capitalize">
-                {userPlan} Plan
+                {plan} Plan
               </div>
             )}
           </div>
@@ -392,7 +395,7 @@ const VideoLibrary: React.FC = () => {
         )}
 
         {/* Upgrade Prompt for Free Users */}
-        {!userPlan && (
+        {!rawPlan && (
           <div className="mt-12 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-4">Unlock Premium Content</h2>
             <p className="text-emerald-100 mb-6">
