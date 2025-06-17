@@ -10,7 +10,7 @@ dotenv_1.default.config();
 const verificationTokenSecret = 'IITR1234';
 const verificationTokenExpire = "15m";
 const accessTokenSecret = "iitr";
-const accessTokenExpire = "1m";
+const accessTokenExpire = "1d";
 const generateAccessToken = (email) => {
     return jsonwebtoken_1.default.sign({ email }, accessTokenSecret, { expiresIn: accessTokenExpire } // e.g., "15m", "1h", "7d"
     );

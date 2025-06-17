@@ -4,7 +4,7 @@ dotenv.config();
 const verificationTokenSecret = 'IITR1234';
 const verificationTokenExpire =  "15m";
 const accessTokenSecret="iitr"
-const accessTokenExpire="1m"
+const accessTokenExpire="1d"
 
 export const generateAccessToken = (email: string): string => {
   return jwt.sign(

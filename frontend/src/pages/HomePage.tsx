@@ -33,7 +33,13 @@ const HomePage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate=useNavigate();
   const handleGetStarted = () => {
-    navigate('/plan')
+    const userPlan = localStorage.getItem("userPlan")
+      ? JSON.parse(localStorage.getItem("userPlan")!)
+      : null;
+    if(!userPlan)
+      navigate('/plan')
+    else
+      navigate('/trainer_dashboard')
   };
 
   const handleTryAI = () => {

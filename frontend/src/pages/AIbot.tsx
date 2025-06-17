@@ -27,47 +27,15 @@ const AIAdvice: React.FC = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
-
-  const verifyToken = async () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-    try {
-      const res = await axios.get('http://localhost:8000/api/auth/verify', {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      if (res.data.valid) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (err) {
-      setIsAuthenticated(false);
-    }
-  };
-
   useEffect(() => {
-    verifyToken();
-  }, []);
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null;
 
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>; // optional loader while verifying
-  }
-
-  useEffect(() => {
-    if (isAuthenticated === false) {
-      navigate('/login');
+    if (!user) {
+      navigate("/login");
     }
-  }, [isAuthenticated]);
-  
-
+  }, [navigate]);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };

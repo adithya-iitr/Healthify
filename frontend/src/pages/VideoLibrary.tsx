@@ -122,41 +122,15 @@ const VideoLibrary: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
-
-  const verifyToken = async () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-    try {
-      const res = await axios.get('http://localhost:8000/api/auth/verify', {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      if (res.data.valid) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (err) {
-      setIsAuthenticated(false);
-    }
-  };
-
   useEffect(() => {
-    verifyToken();
-  }, []);
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>; // optional loader while verifying
-  }
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null;
 
-  if (!isAuthenticated) {
-    navigate('/login');
-  }
+    if (!user) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const filteredVideos = videos.filter(video => {
     const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          video.instructor.toLowerCase().includes(searchTerm.toLowerCase()) ||

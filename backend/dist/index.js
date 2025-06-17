@@ -11,7 +11,7 @@ const gemini_1 = __importDefault(require("./routes/gemini"));
 const jwt_utils_1 = require("./utils/jwt.utils");
 const chatcontroller_1 = require("./controllers/chatcontroller");
 const app = (0, express_1.default)();
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.post('/', (req, res) => {

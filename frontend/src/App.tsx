@@ -18,6 +18,7 @@ import PaymentSuccess from './components/payment/PaymentSuccess';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import ChatPage from './pages/ChatPage';
+import VideoPlayer from './components/auth/VideoPlayer';
 function App() {
   
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/trainer_dashboard" element={<TrainerSelection/>}/>
         <Route path="/home" element={<HomePage/>}/>
         <Route path="/chat/:id" element={<ChatPage/>}/>
+        {/* <Route path="/vid" element={<VideoPlayer src='https://www.youtube.com/watch?v=cVEOhgPziO8'/>}/> */}
       </Routes>
     </Router>
     </>

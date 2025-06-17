@@ -292,48 +292,23 @@ const TrainerSelection: React.FC = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [sortBy, setSortBy] = useState('rating');
   const navigate=useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); 
-
-  const verifyToken = async () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-    try {
-      const res = await axios.get('http://localhost:8000/api/auth/verify', {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      if (res.data.valid) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
-    } catch (err) {
-      setIsAuthenticated(false);
-    }
-  };
-
   useEffect(() => {
-    verifyToken();
-  }, []);
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>; // optional loader while verifying
-  }
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null;
 
-  if (!isAuthenticated) {
-    navigate('/login');
-  }
-  const viewVideoLibrary=()=>{
-    navigate('/video')
-  }
+    if (!user) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const specialties = Array.from(new Set(trainers.flatMap(trainer => trainer.specialties)));
   const viewTrainerProfile=(trainer:Trainer)=>{
     localStorage.setItem('selectedTrainer',JSON.stringify(trainer));
     navigate('/trainer/${trainer.id}')
+  }
+  const viewVideoLibrary=()=>{
+    navigate('/video')
   }
   const filteredTrainers = trainers
     .filter(trainer => {
@@ -574,7 +549,8 @@ const TrainerSelection: React.FC = () => {
                           <span>Profile</span>
                         </div>
                       </button>
-                      <button className="border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-4 rounded-xl transition-all duration-200">
+                      <button onClick={()=>{}}
+                      className="border border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-2 px-4 rounded-xl transition-all duration-200">
                         <div className="flex items-center justify-center space-x-1">
                           <MessageCircle className="h-4 w-4" />
                           <span>Message</span>
